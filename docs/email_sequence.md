@@ -1,47 +1,47 @@
-# Цепочка писем — Polza Agency
+# Email Sequence — Sample Outreach Agency
 
-Отправитель: Polza Agency.
-ЦА: B2B-компании с продуктом/услугой, которые хотят получать заявки через холодный email.
-Переменные: `{{Имя}}`, `{{Компания}}`, `{{персонализация}}`.
+Sender: Sample Outreach Agency.
+Audience: B2B companies with a product or service that can benefit from targeted outbound email.
+Variables: `{{Имя}}`, `{{Компания}}`, `{{персонализация}}`.
 
 ---
 
-## Письмо 1 — Холодное знакомство (День 0)
+## Email 1 — Cold Introduction (Day 0)
 
-**Тема:** {{Компания}} и холодные письма
+**Subject:** {{Компания}} and outbound email
 
-{{Имя}}, привет.
+{{Имя}}, hello.
 
 {{персонализация}}
 
-Мы в Polza Agency запускаем холодный email для B2B. Собираем базу, пишем письма, настраиваем домены. Первые ответы обычно приходят за пару недель.
+We help B2B teams test outbound email without turning it into a large, risky campaign from day one: segment, offer, sequence, domain setup, and reply tracking.
 
-Для {{Компания}} я бы не начинал с большой рассылки. Сначала короткий пилот: 2-3 сегмента, отдельный оффер под каждый и понятные метрики по ответам.
+For {{Компания}}, I would start with a small pilot: 2-3 segments, a separate offer for each, and clear reply metrics before scaling.
 
-Хотите, покажу, как это может выглядеть у вас?
-
----
-
-## Письмо 2 — Фолоу-ап (День 3)
-
-**Тема:** Re: {{Компания}} и холодные письма
-
-{{Имя}}, вдогонку коротко.
-
-Часто слышу «пробовали рассылки, не зашло». Обычно одно и то же: база собрана кое-как, домен холодный, письма читаются как спам.
-
-Мы это закрываем: инфраструктура, валидация базы, цепочка, ответы, аналитика. Без большого проекта на старте — сначала проверяем, где реально есть спрос.
-
-Если не ваша тема сейчас, просто скажите — больше писать не буду. Если интересно, давайте 15 минут, покажу, как запуск выглядит.
+Would it be useful if I showed what that pilot could look like for your market?
 
 ---
 
-## Письмо 3 — Финальный фолоу-ап (День 8)
+## Email 2 — Follow-Up (Day 3)
 
-**Тема:** Re: {{Компания}} и холодные письма
+**Subject:** Re: {{Компания}} and outbound email
 
-{{Имя}}, всё, последнее.
+{{Имя}}, quick follow-up.
 
-Понимаю, что сейчас может быть не до этого. Просто оставлю мысль: холодный email нормально работает, когда это не «рассылка по базе», а серия маленьких тестов — сегмент, оффер, письмо, ответ.
+When cold email does not work, the problem is often not the channel itself. Usually the list is too broad, the domain is cold, or the email reads like a generic template.
 
-Если через месяц-два тема всплывёт, ответьте на это письмо. Договоримся.
+The safer version is to test in small batches: validate the segment, keep the copy specific, track replies, and only then scale.
+
+If this is relevant, I can share a short outline for a pilot campaign.
+
+---
+
+## Email 3 — Final Follow-Up (Day 8)
+
+**Subject:** Re: {{Компания}} and outbound email
+
+{{Имя}}, last note from me.
+
+Cold email works best when it is treated as a series of small tests: segment, offer, message, reply quality. That also keeps the risk low before a bigger rollout.
+
+If this becomes relevant later, you can reply to this email and I will send over a compact campaign outline.

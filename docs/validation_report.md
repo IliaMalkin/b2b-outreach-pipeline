@@ -1,27 +1,28 @@
-# Validation report
+# Validation Report
 
-## Проверено
+## Checked
 
-- `polza_final.csv`: 50 строк, 11 колонок, пустых обязательных полей нет.
-- `polza_final.xlsx`: 3 листа — `База`, `Цепочка писем`, `Сводка QA`.
-- Email: 50/50 заполнены, базовая regex-проверка формата пройдена.
-- Статусы email: 36 найдены на сайтах, 14 дозаполнены из публичных источников.
-- Контакты: `Имя контакта` и `Роль/отдел` разделены. Для строк без найденного публичного имени стоит `публичное имя не найдено`, чтобы не выдавать отдел за человека.
-- Персонализация: 50/50 заполнены, шаблонов `позиционирует себя так` и `работает в сегменте` нет.
-- Цепочка: 3 письма, каждое до 120 слов, неподтвержденные кейсовые цифры убраны.
-- Скрипты: `build_final.py` и `scripts/build_outreach_table.py` проходят `py_compile`.
-- Pipeline-персонализация вынесена в `scripts/personalize_from_csv.py`: CSV на входе, CSV с колонкой `personalization` на выходе.
+- `data/outreach_pipeline_masked.csv`: 50 rows, 11 columns, no empty required fields in the public demo.
+- `outputs/outreach_pipeline_masked.xlsx`: 3 sheets — `Outreach base`, `Email sequence`, `QA summary`.
+- Email values are masked in the public repository.
+- Contact names are redacted in the public repository.
+- `Имя контакта` and `Роль/отдел` are separate columns, so a department is not presented as a person.
+- Personalization is filled for every row.
+- The email sequence has 3 steps and avoids unsupported case-study claims.
+- `scripts/personalize_from_csv.py` runs the CSV -> CSV personalization step.
+- `scripts/build_portfolio_outputs.py` rebuilds the XLSX portfolio artifact from the masked CSV.
 
-## Остаточные риски
+## Remaining Risks
 
-- SMTP-валидация не выполнялась: перед боевой рассылкой базу нужно прогнать через валидатор.
-- Некоторые email относятся к материнскому бренду или группе компаний, а не совпадают 1-в-1 с доменом сайта. Это отмечено статусом/источником и требует ручной проверки перед запуском.
-- Не для всех строк найден публичный ЛПР. В таких строках сохранен role-based контакт, чтобы не выдумывать имена.
-- Персонализация основана на публичных данных сайта/карточек, но без скриншотов источников. Для максимальной доказательности можно добавить отдельную колонку с точным URL страницы-источника.
+- SMTP validation is not included in the public demo. A real campaign would need deliverability validation before launch.
+- Some emails in the original private workflow may belong to a parent brand or company group rather than exactly matching the website domain. The public demo preserves source/status fields to make this reviewable.
+- Not every company exposes a public decision-maker name. Those rows are labeled instead of inventing a person.
+- Personalization is based on public website data and public research notes. A real campaign should keep source URLs/screenshots for auditability.
+- The public repository includes sanitized outputs, not private prompt logs or raw contact data.
 
-## Что усиливает тестовое
+## What Makes The Workflow Useful
 
-- В XLSX есть не только база и письма, но и `Сводка QA`: видно, что результат проверялся, а не просто был сгенерирован.
-- В статусах видно происхождение email: автосбор или публичное дозаполнение.
-- Цепочка писем не опирается на неподтвержденные кейсы, поэтому выглядит честно и безопасно.
-- Скрипт воспроизводит финальную таблицу одной командой: `python build_final.py`.
+- The XLSX is not just a flat export: it includes base data, an email sequence, and QA notes.
+- Status/source columns make it clear where data came from and what needs review.
+- The pipeline can be rerun from CSV inputs instead of being a one-off spreadsheet.
+- The public version shows data hygiene: masking, no invented contacts, and explicit limitations.

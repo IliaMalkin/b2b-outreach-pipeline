@@ -11,7 +11,6 @@ from openpyxl.utils import get_column_letter
 ROOT = Path(__file__).resolve().parents[1]
 DATA_CSV = ROOT / "data" / "outreach_pipeline_masked.csv"
 OUT_XLSX = ROOT / "outputs" / "outreach_pipeline_masked.xlsx"
-EMAIL_SEQUENCE = ROOT / "docs" / "email_sequence.md"
 
 
 def read_rows() -> list[dict[str, str]]:
@@ -52,27 +51,31 @@ def build_workbook(rows: list[dict[str, str]]) -> Workbook:
     sequence_rows = [
         (
             "Email 1",
-            "{{Компания}} и холодные письма",
-            "{{Имя}}, привет.\n\n{{персонализация}}\n\n"
-            "Мы запускаем холодный email для B2B: база, письма, домены и первые ответы. "
-            "Для {{Компания}} я бы начал с короткого пилота на 2-3 сегмента.\n\n"
-            "Хотите, покажу, как это может выглядеть у вас?",
+            "{{Компания}} and outbound email",
+            "{{Имя}}, hello.\n\n{{персонализация}}\n\n"
+            "We help B2B teams test outbound email without turning it into a large, risky campaign from day one: "
+            "segment, offer, sequence, domain setup, and reply tracking.\n\n"
+            "For {{Компания}}, I would start with a small pilot: 2-3 segments, a separate offer for each, "
+            "and clear reply metrics before scaling.\n\n"
+            "Would it be useful if I showed what that pilot could look like for your market?",
         ),
         (
             "Email 2",
-            "Re: {{Компания}} и холодные письма",
-            "{{Имя}}, вдогонку коротко.\n\n"
-            "Часто проблема не в канале, а в запуске: база собрана не по ICP, домен холодный, "
-            "письма читаются как спам.\n\n"
-            "Если интересно, давайте 15 минут, покажу механику запуска.",
+            "Re: {{Компания}} and outbound email",
+            "{{Имя}}, quick follow-up.\n\n"
+            "When cold email does not work, the problem is often not the channel itself. Usually the list is too broad, "
+            "the domain is cold, or the email reads like a generic template.\n\n"
+            "The safer version is to test in small batches: validate the segment, keep the copy specific, "
+            "track replies, and only then scale.\n\n"
+            "If this is relevant, I can share a short outline for a pilot campaign.",
         ),
         (
             "Email 3",
-            "Re: {{Компания}} и холодные письма",
-            "{{Имя}}, всё, последнее.\n\n"
-            "Холодный email нормально работает, когда это серия маленьких тестов: "
-            "сегмент, оффер, письмо, ответ.\n\n"
-            "Если тема всплывёт позже, ответьте на это письмо. Договоримся.",
+            "Re: {{Компания}} and outbound email",
+            "{{Имя}}, last note from me.\n\n"
+            "Cold email works best when it is treated as a series of small tests: segment, offer, message, reply quality. "
+            "That also keeps the risk low before a bigger rollout.\n\n"
+            "If this becomes relevant later, you can reply to this email and I will send over a compact campaign outline.",
         ),
     ]
     for row in sequence_rows:
@@ -92,6 +95,7 @@ def build_workbook(rows: list[dict[str, str]]) -> Workbook:
         ["Personalization", "filled for every row"],
         ["Contact names", "redacted in public portfolio"],
         ["SMTP validation", "not included in public demo"],
+        ["Agent workflow", "documented in docs/agent_workflow.md"],
     ]
     for row in qa_rows:
         qa.append(row)

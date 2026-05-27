@@ -1,17 +1,40 @@
 # B2B Outreach Pipeline
 
-Portfolio project: an end-to-end Python workflow for preparing a B2B cold-email outreach dataset.
+AI-assisted portfolio project: an end-to-end Python workflow for preparing a B2B cold-email outreach dataset.
 
-The public repository contains a sanitized demo version. Real email addresses and personal contact names are not published.
+The public repository contains a sanitized demo version. Real email addresses, personal contact names, and any private campaign data are not published.
+
+## What It Demonstrates
+
+- AI-agent-assisted research workflow for B2B outreach preparation;
+- website-based personalization from public company pages;
+- reproducible CSV -> CSV -> XLSX pipeline for Google Sheets-style work;
+- masked public exports with contact and email privacy preserved;
+- a three-step outreach sequence and QA summary;
+- clear separation between automation, human review, and send-ready validation.
 
 ## What It Does
 
 - starts from a CSV seed list of B2B companies;
-- enriches rows with website-based personalization;
+- fetches public website pages and extracts a short personalization fact;
 - keeps contact role and contact name as separate fields;
 - masks email addresses for public/demo exports;
 - generates Google Sheets-ready CSV and formatted XLSX output;
-- includes a three-step outreach sequence and QA summary.
+- includes a three-step outreach sequence and validation notes.
+
+## AI-Agent Workflow
+
+The project was built as an agent-assisted workflow with Claude Code / Codex-style tooling:
+
+1. define the target segment and seed company list;
+2. use an AI agent to help research public company context and outreach angles;
+3. scrape/fetch public website pages for lightweight personalization signals;
+4. structure the result into a consistent outreach table;
+5. mask contact data before publishing;
+6. generate an XLSX workbook with base data, email sequence, and QA summary;
+7. review rows for hallucinated contacts, unsupported claims, and send-readiness risks.
+
+See [docs/agent_workflow.md](docs/agent_workflow.md) for the detailed workflow.
 
 ## Repository Structure
 
@@ -20,7 +43,8 @@ data/
   companies_seed.csv              # input company list, no email addresses
   outreach_pipeline_masked.csv    # sanitized output dataset
 docs/
-  email_sequence.md               # three-step outreach sequence
+  agent_workflow.md               # AI-agent-assisted build and QA workflow
+  email_sequence.md               # neutral three-step outreach sequence
   validation_report.md            # QA notes and remaining risks
 outputs/
   outreach_pipeline_masked.xlsx   # formatted workbook demo
@@ -36,11 +60,12 @@ This repository is intentionally sanitized:
 - emails are masked, for example `sa***@example.com`;
 - personal contact names are replaced with `public contact found` / `not found in public demo`;
 - the workbook is a demonstration artifact, not a ready-to-send contact list;
-- SMTP validation is not included in the public demo.
+- SMTP validation is not included in the public demo;
+- private prompts, raw scraping notes, and non-public campaign data are not published.
 
 ## Quick Start
 
-Create a CSV with at least `company` and `website` columns, then run:
+Create a CSV with at least `company` and `website` or `site` columns, then run:
 
 ```bash
 python scripts/personalize_from_csv.py data/companies_seed.csv data/companies_personalized_demo.csv
@@ -85,6 +110,7 @@ outputs/outreach_pipeline_masked.xlsx
 This project demonstrates:
 
 - practical data wrangling for outbound operations;
+- AI-assisted research and personalization workflow;
 - safe handling of contact data in public artifacts;
 - website-based personalization;
 - export automation for CSV/XLSX/Google Sheets workflows;
@@ -95,3 +121,4 @@ This project demonstrates:
 - The public dataset is masked and should not be used for real outreach.
 - Email deliverability checks and SMTP validation are intentionally out of scope.
 - Some companies do not expose a public decision-maker name; those rows are labeled instead of inventing a contact.
+- The public demo includes the reproducible Python pipeline and sanitized outputs, not private agent logs or raw campaign data.
