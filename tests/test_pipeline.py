@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import csv
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from scripts import build_portfolio_outputs, personalize_from_csv
 
