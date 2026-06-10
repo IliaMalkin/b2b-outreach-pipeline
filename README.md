@@ -1,6 +1,23 @@
 # B2B Outreach Pipeline
 
+![CI](https://github.com/IliaMalkin/b2b-outreach-pipeline/actions/workflows/ci.yml/badge.svg?branch=main)
+![Python](https://img.shields.io/badge/python-3.11%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 AI-assisted portfolio project: an end-to-end Python workflow for preparing a B2B cold-email outreach dataset.
+
+```text
+companies_seed.csv ──► personalize_from_csv.py ──► enriched CSV
+        (50 B2B SaaS companies)        (fetch site, extract fact)
+                                              │
+                                              ▼
+                              build_portfolio_outputs.py
+                                              │
+                              ┌───────────────┴───────────────┐
+                              ▼                               ▼
+              outreach_pipeline_masked.csv      outreach_pipeline_masked.xlsx
+              (Google Sheets-ready)             (base data + sequence + QA summary)
+```
 
 The public repository contains a sanitized demo version. Real email addresses, personal contact names, and any private campaign data are not published.
 
@@ -35,6 +52,26 @@ The project was built as an agent-assisted workflow with Claude Code / Codex-sty
 7. review rows for hallucinated contacts, unsupported claims, and send-readiness risks.
 
 See [docs/agent_workflow.md](docs/agent_workflow.md) for the detailed workflow.
+
+## Example: Input Row → Output Row
+
+Input (`data/companies_seed.csv`):
+
+| company | site | segment |
+| --- | --- | --- |
+| amoCRM | https://www.amocrm.ru/ | CRM для отделов продаж |
+
+Output (`data/outreach_pipeline_masked.csv`):
+
+| Field | Value |
+| --- | --- |
+| Email | `su***@amocrm.ru` (masked for public demo) |
+| Роль/отдел | Клиентский отдел |
+| Персонализация | «amoCRM позиционирует себя как CRM именно для продаж, а не для всего сразу — значит ваша аудитория уже понимает ценность воронки и может оценить дополнительный канал лидов.» |
+| Источник email | amocrm.ru/contacts/ |
+| Статус | email найден на сайте; masked public demo |
+
+The personalization line is grounded in the company's own public homepage copy — when a site is unreachable or exposes no public contact, the row is labeled (`[сайт недоступен]`, `not found in public demo`) instead of inventing data.
 
 ## Repository Structure
 
@@ -104,17 +141,6 @@ outputs/outreach_pipeline_masked.xlsx
 - XLSX generation: `openpyxl`
 - Website fetch: Python standard library (`urllib`)
 - No paid APIs are required for the public demo.
-
-## Portfolio Framing
-
-This project demonstrates:
-
-- practical data wrangling for outbound operations;
-- AI-assisted research and personalization workflow;
-- safe handling of contact data in public artifacts;
-- website-based personalization;
-- export automation for CSV/XLSX/Google Sheets workflows;
-- QA thinking: row counts, masked data, status labels, and validation notes.
 
 ## Limitations
 
