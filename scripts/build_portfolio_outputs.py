@@ -48,7 +48,7 @@ def build_workbook(rows: list[dict[str, str]]) -> Workbook:
     for cell in sequence[1]:
         cell.fill = header_fill
         cell.font = header_font
-    sequence_rows = [
+    sequence_rows: list[tuple[str, str, str]] = [
         (
             "Email 1",
             "{{Компания}} and outbound email",
@@ -78,8 +78,8 @@ def build_workbook(rows: list[dict[str, str]]) -> Workbook:
             "If this becomes relevant later, you can reply to this email and I will send over a compact campaign outline.",
         ),
     ]
-    for row in sequence_rows:
-        sequence.append(row)
+    for sequence_row in sequence_rows:
+        sequence.append(sequence_row)
     sequence.column_dimensions["A"].width = 20
     sequence.column_dimensions["B"].width = 40
     sequence.column_dimensions["C"].width = 96
@@ -88,7 +88,7 @@ def build_workbook(rows: list[dict[str, str]]) -> Workbook:
             cell.alignment = wrap
 
     qa = workbook.create_sheet("QA summary")
-    qa_rows = [
+    qa_rows: list[list[object]] = [
         ["Metric", "Value"],
         ["Rows", len(rows)],
         ["Email visibility", "all emails masked in public portfolio"],
@@ -97,8 +97,8 @@ def build_workbook(rows: list[dict[str, str]]) -> Workbook:
         ["SMTP validation", "not included in public demo"],
         ["Agent workflow", "documented in docs/agent_workflow.md"],
     ]
-    for row in qa_rows:
-        qa.append(row)
+    for qa_row in qa_rows:
+        qa.append(qa_row)
     for cell in qa[1]:
         cell.fill = header_fill
         cell.font = header_font

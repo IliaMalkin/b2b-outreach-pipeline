@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import sys
 from pathlib import Path
+from urllib.error import URLError
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -55,3 +56,32 @@ def test_personalize_run_adds_personalization_column(
     assert rows[0]["company"] == "Example Co"
     assert rows[0]["personalization"]
     assert "reliable B2B data tools" in rows[0]["personalization"]
+
+
+def test_personalize_row_falls_back_for_network_errors(monkeypatch) -> None:
+    def fail_fetch(url: str) -> str:
+        raise URLError("offline")
+
+    monkeypatch.setattr(personalize_from_csv, "fetch", fail_fetch)
+
+    row = personalize_from_csv.personalize_row(
+        {"company": "Example Co", "website": "example.com"}
+    )
+
+    assert row["personalization"] == "[сайт недоступен]"
+
+
+def test_personalize_row_does_not_hide_programming_errors(monkeypatch) -> None:
+    def fail_fetch(url: str) -> str:
+        raise RuntimeError("unexpected bug")
+
+    monkeypatch.setattr(personalize_from_csv, "fetch", fail_fetch)
+
+    try:
+        personalize_from_csv.personalize_row(
+            {"company": "Example Co", "website": "example.com"}
+        )
+    except RuntimeError as exc:
+        assert str(exc) == "unexpected bug"
+    else:
+        raise AssertionError("unexpected programming errors must propagate")

@@ -3,9 +3,11 @@ from __future__ import annotations
 import argparse
 import csv
 import html
+import logging
 import re
 import ssl
 from pathlib import Path
+from urllib.error import URLError
 from urllib.parse import urljoin
 from urllib.request import Request, urlopen
 
@@ -14,6 +16,7 @@ USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 )
+LOGGER = logging.getLogger(__name__)
 
 
 def normalize_url(value: str) -> list[str]:
@@ -88,7 +91,8 @@ def personalize_row(row: dict[str, str]) -> dict[str, str]:
             body = fetch(urljoin(url, "/"))
             row["personalization"] = extract_fact(company, site, body)
             return row
-        except Exception:  # noqa: BLE001 - fallback is recorded in the output.
+        except (URLError, TimeoutError) as exc:
+            LOGGER.warning("Could not fetch %s: %s", url, exc)
             continue
     row["personalization"] = "[сайт недоступен]"
     return row
